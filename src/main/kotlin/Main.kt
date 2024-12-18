@@ -5,18 +5,33 @@ import org.example.models.*
 
 fun main() {
     var seleccioMenu: Int = 0
+    var seleccioMenuLogin: Int = 0
     val MENU: String = mostrarMenu(opc0 = "Sortir")
+    val MENU_LOGIN:String= mostrarMenu("Registrar usuari","Login","Logout")
     val benvinguda: String = bold(benvinguda("fer operacions matemàtiques bàsiques"))
     var continuar: Boolean = true
+    var dadesUsuari:Usuari = Usuari("","","",0,0)
+    var operacionsDisponibles:Int=0
 
     println(benvinguda)
 
-    println("Introdueix les teves dades a continuació")
-    var nomUsuari = readWord("Introdueix el teu nom","Has d'escriure el teu nom")
-    var cognomUsuari = readWord("Introdueix el teu cognom","Has d'escriure el teu cognom")
-    var contrasenya = readWord("Introdueix una contrasenya","Has d'escriure una contrasenya")
-    var operacionsDisponibles:Int=5
-    var dadesUsuari:Usuari = Usuari(nomUsuari,cognomUsuari,contrasenya,operacionsDisponibles)
+    println(MENU_LOGIN)
+    seleccioMenuLogin = triarOpcioMenu(nMin = 1, nMax = 3, missatge = "Escriu l'opció escollida a continuació:")
+    when(seleccioMenuLogin) {
+        1->{
+            println("Introdueix les teves dades a continuació")
+            var nomUsuari = readWord("Introdueix el teu nom","Has d'escriure el teu nom")
+            var cognomUsuari = readWord("Introdueix el teu cognom","Has d'escriure el teu cognom")
+            var contrasenya = readWord("Introdueix una contrasenya","Has d'escriure una contrasenya")
+            var id=1
+            operacionsDisponibles=5
+            dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,operacionsDisponibles,id)
+        }
+        2->{}
+        3->{}
+    }
+
+
     println(dadesUsuari)
         do {
             continuar = true
@@ -31,6 +46,7 @@ fun main() {
                     var operacio = operarDosNumeros(entradaUsuari, "suma")
                     println("El resultat de la suma entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
                     operacionsDisponibles--
+                    dadesUsuari.operacionsDisponibles--
                 }
 
                 2 -> {
@@ -71,6 +87,7 @@ fun main() {
                 }
             }
             println("Et queden $operacionsDisponibles operacions disponibles")
+            println(dadesUsuari)
             if (continuar && operacionsDisponibles>0) {
                 continuar = preguntaTrueFalse("\nVols continuar? (Si/No)", "Has d'escriure 'Si' o 'No'", "si", "no")
             }

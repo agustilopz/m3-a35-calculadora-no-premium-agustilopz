@@ -1,7 +1,58 @@
 package org.example
 
+import org.example.models.Usuari
 import kotlin.math.sqrt
 import utils.*
+
+fun registrarUsuari() {
+    var llistaUsuaris:MutableList<Usuari> = mutableListOf<Usuari>()
+
+    println("Introdueix les teves dades a continuació")
+    var nomUsuari = readWord("Introdueix el teu nom","Has d'escriure el teu nom")
+    var cognomUsuari = readWord("Introdueix el teu cognom","Has d'escriure el teu cognom")
+    var contrasenya = readWord("Introdueix una contrasenya","Has d'escriure una contrasenya")
+    var operacionsDisponibles=5
+    var dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,operacionsDisponibles,0)
+}
+
+/**
+ * This method can be used to read a String word value from the user through keyboard using java.util.Scanner
+ * @author raimon.izard
+ * @since 15/12/2023
+ * @param pMessageIn Input message to be shown to the user
+ * @param pMessageErrorDT Data type error message to be shown to the user
+ * @return outputValue Output value
+ */
+fun readWord(pMessageIn: String
+             , pMessageErrorDT: String,llistaUsuaris:MutableList<Usuari>
+): String{
+
+    var usuariIntroduit : String = ""
+    var correctDataType : Boolean = false
+    var valorRepetit : Boolean = false
+
+    do{
+        println(pMessageIn)
+        correctDataType = scan.hasNext()
+
+        if (!correctDataType){
+            println(RED_BACKGROUND_BRIGHT + "ERROR: " + pMessageErrorDT + RESET)
+        }else{
+            usuariIntroduit = scan.next()
+            scan.nextLine()
+            for(usuari in llistaUsuaris) {
+                if(usuariIntroduit==usuari.nom){
+                    valorRepetit=true
+                }
+            }
+            if(valorRepetit){
+                println("ERROR: El nom que has introduït ja esta registrat.")
+            }
+        }
+    }while(!correctDataType || valorRepetit)
+
+    return usuariIntroduit
+}
 
 /**
  * Aquesta funció serveix per mostrar un missatge de benvinguda personalitzable
@@ -40,7 +91,28 @@ fun mostrarMenu(
         
     """.trimIndent()
     return menu
+}
 
+/**
+ * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
+ * @author agustí.lópez
+ * @since 17/12/2024
+ * @param opc0 Opció de sortida per defecte
+ * @param opc1 Opció 1 del menú
+ * @return resultat String del missatge del menú
+ */
+fun mostrarMenu(
+    opc1: String = "Sumar", opc2: String = "Restar", opc3: String = "Multiplicar"
+): String {
+    var menu: String = """
+        Escolleix una de les següents opcions:
+        
+        1. $opc1
+        2. $opc2
+        3. $opc3
+        
+    """.trimIndent()
+    return menu
 }
 
 /**
@@ -72,21 +144,6 @@ fun triarOpcioMenu(missatge: String = "Tria una opció", nMin: Int, nMax: Int): 
     return opcioMenu
 }
 
-
-/**
- * Aquesta funció pot ser utilitzada per a sumar dos valors de tipus enter
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Primer valor de la suma
- * @param y Segon valor de la suma
- * @return resultat Resultat de la suma
- */
-fun suma(x: Int, y: Int): Int {
-    var resultat: Int
-    resultat = x + y
-    return resultat
-}
-
 /**
  * Aquesta funció pot ser utilitzada per a sumar dos valors de tipus float
  * @author agustí.lópez
@@ -102,20 +159,6 @@ fun suma(x: Float, y: Float): Float {
 }
 
 /**
- * Aquesta funció pot ser utilitzada per a restar dos valors de tipus enter
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Primer valor de la resta
- * @param y Segon valor de la resta
- * @return resultat Resultat de la resta
- */
-fun resta(x: Int, y: Int): Int {
-    var resultat: Int
-    resultat = x - y
-    return resultat
-}
-
-/**
  * Aquesta funció pot ser utilitzada per a restar dos valors de tipus float
  * @author agustí.lópez
  * @since 10/12/2024
@@ -126,20 +169,6 @@ fun resta(x: Int, y: Int): Int {
 fun resta(x: Float, y: Float): Float {
     var resultat: Float
     resultat = x - y
-    return resultat
-}
-
-/**
- * Aquesta funció pot ser utilitzada per a multiplicar dos valors de tipus enter
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Primer valor de la multiplicació
- * @param y Segon valor de la multiplicació
- * @return resultat Resultat de la multiplicació
- */
-fun multiplicacio(x: Int, y: Int): Int {
-    var resultat: Int
-    resultat = x * y
     return resultat
 }
 
@@ -185,48 +214,6 @@ fun quadrat(x: Int): Int {
 }
 
 /**
- * Aquesta funció pot ser utilitzada per a calcular l'arrel quadrada d'un número
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Valor a partir del qual calcular l'arrel quadrada
- * @return resultat Resultat de l'arrel quadrada
- */
-fun arrelQuadrada(x: Float): Float {
-    var resultat: Float
-    resultat = sqrt(x)
-    return resultat
-}
-
-/**
- * Aquesta funció pot ser utilitzada per a calcular el factorial de un número de tipus enter
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Valor del que volem calcular el factorial
- * @return resultat Resultat del factorial
- */
-//Enter i positiu
-fun factorial(x: Long): Long {
-    var resultat: Long = 1L
-    for (i in 1L..x) {
-        resultat = resultat * i
-    }
-    return resultat
-}
-
-/**
- * Aquesta funció pot ser utilitzada per a fer càlculs a partir de dos números de tipus enter
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Valor del primer número
- * @param x Valor del segon número
- * @param operacio Funció que fa la operació desitjada (suma,resta,etc)
- * @return resultat Resultat del càlcul
- */
-fun operar(x: Int, y: Int, operacio: (a: Int, b: Int) -> Int): Int {
-    return operacio(x, y)
-}
-
-/**
  * Aquesta funció pot ser utilitzada per a fer càlculs a partir de dos números de tipus float
  * @author agustí.lópez
  * @since 10/12/2024
@@ -249,60 +236,6 @@ fun operar(x: Float, y: Float, operacio: (a: Float, b: Float) -> Float): Float {
  */
 fun operar(x: Int, operacio: (a: Int) -> Int): Int {
     return operacio(x)
-}
-
-/**
- * Aquesta funció pot ser utilitzada per a fer càlculs a partir d'un número de tipus float
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Valor del número
- * @param operacio Funció que fa l'operació desitjada (quadrat, arrel quadrada,etc.)
- * @return resultat Resultat del càlcul
- */
-fun operar(x: Float, operacio: (a: Float) -> Float): Float {
-    return operacio(x)
-}
-
-/**
- * Aquesta funció pot ser utilitzada per a fer càlculs a partir d'un número de tipus Long
- * @author agustí.lópez
- * @since 10/12/2024
- * @param x Valor del número
- * @param operacio Funció que fa l'operació desitjada (quadrat, arrel quadrada,etc.)
- * @return resultat Resultat del càlcul
- */
-fun operar(x: Long, operacio: (a: Long) -> Long): Long {
-    return operacio(x)
-}
-
-
-/**
- * Aquesta funció pot ser utilitzada per a llegir, controlar i emmagatzemar un número de tipus float introduit per l'usuari
- * @author agustí.lópez
- * @since 10/12/2024
- * @param missatge Missatge que es mostrarà per pantalla
- * @return numero Numero introduit per l'usuari
- */
-fun llegirUnNumero(missatge: String = "Introdueix un número positiu a continuació:"): Float {
-    var valorCorrecte: Boolean = true
-    var numero: Float = 0.0f
-    do {
-        println(missatge)
-        valorCorrecte = scan.hasNextFloat()
-        if (valorCorrecte == false) {
-            println(RED_BOLD + "ERROR: Has d'introduir un número positiu" + RESET)
-            scan.nextLine()
-        } else {
-            numero = scan.nextFloat()
-            scan.nextLine()
-            if (numero <= 0.0f) {
-                println(RED_BOLD + "ERROR: Has d'introduir un número positiu" + RESET)
-                valorCorrecte = false
-            }
-        }
-    } while (valorCorrecte == false)
-    return numero
-
 }
 
 /**
@@ -436,9 +369,7 @@ fun bold(text:String): String {
     return sortida
 }
 
-
-/* Funcions no utilitzades */
-
+/* ----------------------------Funcions no utilitzades----------------------------------------- */
 /**
  * Aquesta funció servei per fer una operació entre dos números de tipus float
  * @author agustí.lópez
@@ -472,28 +403,6 @@ fun resultatOperacioDosNumeros(entradaUsuari: Array<Float>, operacio: String): F
 
     return resultat
 }
-
-/**
- * Aquesta funció servei per fer una operació amb un número de tipus float
- * @author agustí.lópez
- * @since 10/12/2024
- * @param entradaUsuari Número a partir del qual realitzar l'operació
- * @param operacio Operació a realitzar
- * @return resultat Resultat de l'operació
- */
-fun resultatOperacioUnNumero(entradaUsuari: Float, operacio: String): Float {
-    var num1 = entradaUsuari
-    var resultat: Float = 0.0f
-
-    when (operacio.lowercase()) {
-        "arrel quadrada" -> {
-            resultat = operar(num1, ::arrelQuadrada)
-        }
-    }
-
-    return resultat
-}
-
 /**
  * Aquesta funció servei per fer una operació amb un número de tipus enter
  * @author agustí.lópez
@@ -511,20 +420,6 @@ fun resultatOperacioUnNumero(entradaUsuari: Int, operacio: String): Int {
             resultat = operar(num1, ::quadrat)
         }
 
-    }
-
-    return resultat
-}
-
-fun resultatOperacioUnNumero(entradaUsuari: Long, operacio: String): Long {
-    var num1 = entradaUsuari
-    var resultat: Long = 0L
-
-    when (operacio.lowercase()) {
-
-        "factorial" -> {
-            resultat = operar(num1, ::factorial)
-        }
     }
 
     return resultat
