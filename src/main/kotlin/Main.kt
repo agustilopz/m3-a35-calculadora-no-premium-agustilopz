@@ -4,6 +4,7 @@ import utils.*
 import org.example.models.*
 
 fun main() {
+    /*
     var seleccioMenu: Int = 0
     var seleccioMenuLogin: Int = 0
     val MENU: String = mostrarMenu(opc0 = "Sortir")
@@ -25,7 +26,7 @@ fun main() {
             var contrasenya = readWord("Introdueix una contrasenya","Has d'escriure una contrasenya")
             var id=1
             operacionsDisponibles=5
-            dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,operacionsDisponibles,id)
+            //dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,operacionsDisponibles,id)
         }
         2->{}
         3->{}
@@ -97,4 +98,12 @@ fun main() {
 
         } while (continuar && operacionsDisponibles>0)
     println("\nFins aviat!")
+
+
+
+
+
+
+
+     */
 }

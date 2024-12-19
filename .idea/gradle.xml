@@ -8,7 +8,7 @@
         <option name="gradleHome" value="" />
         <option name="modules">
           <set>
-            <option value="/dades/Agusti/M03/M3-A35" />
+            <option value="$PROJECT_DIR$" />
           </set>
         </option>
       </GradleProjectSettings>

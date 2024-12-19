@@ -1,30 +1,56 @@
 package org.example
 
 import org.example.models.Usuari
-import kotlin.math.sqrt
 import utils.*
+
+fun login() {
+    var llistaUsuaris:MutableList<Usuari> = mutableListOf<Usuari>()
+}
+
+fun registre(){}
+
+fun logout(){}
+
+
 
 fun registrarUsuari() {
     var llistaUsuaris:MutableList<Usuari> = mutableListOf<Usuari>()
-
+    val NUMERO_OPERACIONS_DISPONIBLES:Int=5
     println("Introdueix les teves dades a continuació")
     var nomUsuari = readWord("Introdueix el teu nom","Has d'escriure el teu nom")
     var cognomUsuari = readWord("Introdueix el teu cognom","Has d'escriure el teu cognom")
+    var username= llegirNomUsuariRegistre("Introdueix el teu nom d'usuari",llistaUsuaris)
     var contrasenya = readWord("Introdueix una contrasenya","Has d'escriure una contrasenya")
-    var operacionsDisponibles=5
-    var dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,operacionsDisponibles,0)
+    var operacionsDisponibles=NUMERO_OPERACIONS_DISPONIBLES
+
+    var idMax:Int=0
+    if(llistaUsuaris.isEmpty()) {
+        idMax=0
+    }
+    else {
+        for (usuari in llistaUsuaris) {
+            if (usuari.id > idMax) {
+                idMax = usuari.id
+            }
+        }
+    }
+    var idNou=idMax+1
+
+    llistaUsuaris.add(Usuari(nomUsuari,cognomUsuari,username,contrasenya,operacionsDisponibles,idNou))
+
+    var dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,"pep",operacionsDisponibles,0)
 }
 
+
 /**
- * This method can be used to read a String word value from the user through keyboard using java.util.Scanner
- * @author raimon.izard
- * @since 15/12/2023
- * @param pMessageIn Input message to be shown to the user
- * @param pMessageErrorDT Data type error message to be shown to the user
- * @return outputValue Output value
+ * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
+ * @author agustí.lópez
+ * @since 19/12/2024
+ * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
+ * @param llistaUsuaris Llista de tots els usuaris registrats actualment
+ * @return Nom de l'usuari validat
  */
-fun readWord(pMessageIn: String
-             , pMessageErrorDT: String,llistaUsuaris:MutableList<Usuari>
+fun llegirNomUsuariRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>
 ): String{
 
     var usuariIntroduit : String = ""
@@ -32,18 +58,21 @@ fun readWord(pMessageIn: String
     var valorRepetit : Boolean = false
 
     do{
-        println(pMessageIn)
+        println(missatgeEntrada)
         correctDataType = scan.hasNext()
 
         if (!correctDataType){
-            println(RED_BACKGROUND_BRIGHT + "ERROR: " + pMessageErrorDT + RESET)
+            println(RED_BACKGROUND_BRIGHT + "ERROR: Has d'introduir un nom d'usuari"+ RESET)
         }else{
-            usuariIntroduit = scan.next()
-            scan.nextLine()
+            usuariIntroduit = scan.nextLine()
             for(usuari in llistaUsuaris) {
-                if(usuariIntroduit==usuari.nom){
+                if(usuariIntroduit==usuari.nomUsuari){
                     valorRepetit=true
                 }
+            }
+            if(usuariIntroduit.contains(" ")){
+                println("ERROR: El nom d'usuari no pot contenir espais")
+                correctDataType =false
             }
             if(valorRepetit){
                 println("ERROR: El nom que has introduït ja esta registrat.")
@@ -52,6 +81,117 @@ fun readWord(pMessageIn: String
     }while(!correctDataType || valorRepetit)
 
     return usuariIntroduit
+}
+
+/**
+ * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
+ * @author agustí.lópez
+ * @since 19/12/2024
+ * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
+ * @param llistaUsuaris Llista de tots els usuaris registrats actualment
+ * @return Nom de l'usuari validat
+ */
+fun llegirNomUsuariLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>
+): String{
+
+    var nomUsuariIntroduit : String = ""
+    var correctDataType : Boolean = false
+    var usuariRegistrat : Boolean = false
+
+    do{
+        println(missatgeEntrada)
+        correctDataType = scan.hasNext()
+
+        if (!correctDataType){
+            println(RED_BACKGROUND_BRIGHT + "ERROR: Has d'introduir un nom d'usuari"+ RESET)
+        }else{
+            nomUsuariIntroduit = scan.nextLine()
+            for(usuari in llistaUsuaris) {
+                if(nomUsuariIntroduit==usuari.nomUsuari){
+                    usuariRegistrat=true
+                }
+            }
+            if(!usuariRegistrat){
+                println("ERROR: El nom que has introduït no esta registrat.")
+            }
+        }
+    }while(!correctDataType || !usuariRegistrat)
+
+    return nomUsuariIntroduit
+}
+
+/**
+ * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
+ * @author agustí.lópez
+ * @since 19/12/2024
+ * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
+ * @param llistaUsuaris Llista de tots els usuaris registrats actualment
+ * @return Nom de l'usuari validat
+ */
+fun llegirContrasenyaLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>,nomUsuariIntroduit:String): String {
+    var contrasenyaIntroduida: String = ""
+    var correctDataType: Boolean = false
+    var contransenyaCorrecte: Boolean = false
+
+    do {
+        println(missatgeEntrada)
+        correctDataType = scan.hasNext()
+
+        if (!correctDataType) {
+            println(RED_BACKGROUND_BRIGHT + "ERROR: Has d'introduir un nom d'usuari" + RESET)
+        } else {
+            contrasenyaIntroduida = scan.next()
+            scan.nextLine()
+            for (usuari in llistaUsuaris) {
+                if (nomUsuariIntroduit == usuari.nomUsuari) {
+                    if (contrasenyaIntroduida == usuari.contrasenya) {
+                        contransenyaCorrecte = true
+                    } else {
+                        println("La contrasenya que has introduït no correspon amb el nom d'usuari.")
+                        contransenyaCorrecte = false
+                    }
+                }
+            }
+        }
+        }while (!correctDataType || !contransenyaCorrecte)
+
+        return contrasenyaIntroduida
+}
+
+
+/**
+ * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
+ * @author agustí.lópez
+ * @since 19/12/2024
+ * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
+ * @param llistaUsuaris Llista de tots els usuaris registrats actualment
+ * @return Nom de l'usuari validat
+ */
+fun llegirContrasenyaRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>
+): String{
+
+    var contrasenyaIntroduida : String = ""
+    var correctDataType : Boolean = false
+    var contransenyaSegura : Boolean = false
+
+    do{
+        println(missatgeEntrada)
+        correctDataType = scan.hasNext()
+
+        if (!correctDataType){
+            println(RED_BACKGROUND_BRIGHT + "ERROR: Has d'introduir un nom d'usuari"+ RESET)
+        }else{
+            contrasenyaIntroduida = scan.next()
+
+            if(contrasenyaIntroduida.length<5){
+                println("ERROR: La contransenya ha de tenir un mínim de 5 caràcters.")
+                contransenyaSegura=false
+            }else contransenyaSegura=true
+
+        }
+    }while(!correctDataType || !contransenyaSegura)
+
+    return contrasenyaIntroduida
 }
 
 /**
