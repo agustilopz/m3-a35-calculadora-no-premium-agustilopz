@@ -3,14 +3,130 @@ package org.example
 import org.example.models.Usuari
 import utils.*
 
-fun login() {
-    var llistaUsuaris:MutableList<Usuari> = mutableListOf<Usuari>()
+
+
+fun ferOperacions(usuariActual: Usuari){
+    do {
+        var continuar = true
+        val MENU: String = mostrarMenu(opc0 = "Sortir")
+        println(MENU)
+
+        var seleccioMenu = triarOpcioMenu(nMin = 0, nMax = 6, missatge = "Escriu l'opció escollida a continuació:")
+
+        when (seleccioMenu) {
+            1 -> {
+                var entradaUsuari = llegirDosNumeros()
+                var operacio = operarDosNumeros(entradaUsuari, "suma")
+                println("El resultat de la suma entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+                usuariActual.operacionsDisponibles--
+            }
+
+            2 -> {
+                var entradaUsuari = llegirDosNumeros()
+                var operacio = operarDosNumeros(entradaUsuari, "resta")
+                println("El resultat de la resta entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+                usuariActual.operacionsDisponibles--
+            }
+
+            3 -> {
+                var entradaUsuari = llegirDosNumeros()
+                var operacio = operarDosNumeros(entradaUsuari, "multiplicacio")
+                println("El resultat de la multiplicació entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+                usuariActual.operacionsDisponibles--
+            }
+
+            4 -> {
+                var entradaUsuari = llegirDosNumeros()
+                var operacio = operarDosNumeros(entradaUsuari, "divisio")
+                println("El resultat de la divisió entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+                usuariActual.operacionsDisponibles--
+            }
+
+            5 -> {
+                var num1 = llegirUnNumeroEnter("Introdueix un número enter positiu")
+                var resultat = operar(num1, ::quadrat)
+                println("El resultat del quadrat de $WHITE_BOLD$num1$RESET és $GREEN_BOLD$resultat$RESET")
+                usuariActual.operacionsDisponibles--
+            }
+
+            6 -> {
+                println("Et queden ${usuariActual.operacionsDisponibles} operacions restants.")
+            }
+
+
+            0 -> {
+                continuar = false
+            }
+        }
+
+        println("Et queden ${usuariActual.operacionsDisponibles} operacions disponibles")
+        //println(dadesUsuari)
+        if (continuar && usuariActual.operacionsDisponibles > 0) {
+            continuar = preguntaTrueFalse("\nVols seguir fent operacions? (Si/No)", "Has d'escriure 'Si' o 'No'", "si", "no")
+        }
+        if (usuariActual.operacionsDisponibles == 0) {
+            println("Has exhaurit les 5 operacions de prova. Fes-te premium pel mòdic preu de 299,99€ al mes per gaudir de operacions il·limitades!")
+        }
+
+} while (continuar && usuariActual.operacionsDisponibles>0)
 }
 
-fun registre(){}
+fun registre(llistaUsuaris: MutableList<Usuari>){
+    val NUMERO_OPERACIONS_DISPONIBLES:Int=5
+    println("Introdueix les teves dades a continuació")
+    var nom = readWord("Introdueix el teu nom","Has d'escriure el teu nom")
+    var cognom = readWord("Introdueix el teu cognom","Has d'escriure el teu cognom")
+    var nomUsuari=llegirNomUsuariRegistre("Introdueix nom user", llistaUsuaris)
+    var contrasenya=llegirContrasenyaRegistre("Introdueix la contrasenya", llistaUsuaris)
+    var operacionsDisponibles=NUMERO_OPERACIONS_DISPONIBLES
+    llistaUsuaris.add(Usuari(nom,cognom,nomUsuari,contrasenya,operacionsDisponibles,1))
+    println("El registre s'ha realitzat correctament")
+}
+
+fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirContrasenyaLogin:String):Usuari {
+    var usuariActual:Usuari=Usuari("","","","",0,1)
+    for(usuari in llistaUsuaris) {
+        if(llegirNomUsuariLogin==usuari.nomUsuari && llegirContrasenyaLogin==usuari.contrasenya){
+            usuariActual=usuari
+
+        }
+    }
+
+    return usuariActual
+
+}
+
+
 
 fun logout(){}
 
+fun generarID(llistaUsuaris:MutableList<Usuari>):Int{
+    var idMax:Int=0
+    if(llistaUsuaris.isEmpty()) {
+        idMax=0
+    }
+    else {
+        for (usuari in llistaUsuaris) {
+            if (usuari.id > idMax) {
+                idMax = usuari.id
+            }
+        }
+    }
+    var idNou:Int = idMax+1
+    return idNou
+}
+
+fun operacionsDisponibles(usuariActual:Usuari) {
+    if(usuariActual.operacionsDisponibles>0){
+        println("Et queden ${usuariActual.operacionsDisponibles} operacions disponibles.")
+        //Operacions
+        usuariActual.operacionsDisponibles--
+
+    }else {
+        println("Has esgotat totes les operacions de prova.")
+    }
+
+}
 
 
 fun registrarUsuari() {
@@ -60,6 +176,7 @@ fun llegirNomUsuariRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<U
     do{
         println(missatgeEntrada)
         correctDataType = scan.hasNext()
+        valorRepetit=false
 
         if (!correctDataType){
             println(RED_BACKGROUND_BRIGHT + "ERROR: Has d'introduir un nom d'usuari"+ RESET)
@@ -242,7 +359,7 @@ fun mostrarMenu(
  * @return resultat String del missatge del menú
  */
 fun mostrarMenu(
-    opc1: String = "Sumar", opc2: String = "Restar", opc3: String = "Multiplicar"
+    opc1: String, opc2: String, opc3: String, opc0: String
 ): String {
     var menu: String = """
         Escolleix una de les següents opcions:
@@ -250,6 +367,73 @@ fun mostrarMenu(
         1. $opc1
         2. $opc2
         3. $opc3
+        0. $opc0
+        
+    """.trimIndent()
+    return menu
+}
+
+/**
+ * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
+ * @author agustí.lópez
+ * @since 17/12/2024
+ * @param opc0 Opció de sortida per defecte
+ * @param opc1 Opció 1 del menú
+ * @return resultat String del missatge del menú
+ */
+fun mostrarMenu(
+    opc1: String, opc2: String, opc0: String
+): String {
+    var menu: String = """
+        Escolleix una de les següents opcions:
+        
+        1. $opc1
+        2. $opc2
+        0. $opc0
+        
+    """.trimIndent()
+    return menu
+}
+
+
+
+/**
+ * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
+ * @author agustí.lópez
+ * @since 17/12/2024
+ * @param opc0 Opció de sortida per defecte
+ * @param opc1 Opció 1 del menú
+ * @return resultat String del missatge del menú
+ */
+fun mostrarMenu(
+    opc1: String, opc2: String
+): String {
+    var menu: String = """
+        Escolleix una de les següents opcions:
+        
+        1. $opc1
+        2. $opc2
+        
+    """.trimIndent()
+    return menu
+}
+
+/**
+ * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
+ * @author agustí.lópez
+ * @since 17/12/2024
+ * @param opc0 Opció de sortida per defecte
+ * @param opc1 Opció 1 del menú
+ * @return resultat String del missatge del menú
+ */
+fun mostrarMenu(
+    opc1: String
+): String {
+    var menu: String = """
+        Escolleix una de les següents opcions:
+        
+        1. $opc1
+
         
     """.trimIndent()
     return menu
