@@ -17,40 +17,62 @@ fun ferOperacions(usuariActual: Usuari){
             1 -> {
                 var entradaUsuari = llegirDosNumeros()
                 var operacio = operarDosNumeros(entradaUsuari, "suma")
-                println("El resultat de la suma entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+                println(PURPLE + "El resultat de la suma entre ${RESET}$PURPLE_BOLD${operacio[0]}$RESET ${PURPLE}i ${RESET}$PURPLE_BOLD${operacio[1]}$RESET ${PURPLE}és${RESET} $PURPLE_BOLD_BRIGHT${operacio[2]}$RESET")
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+
                 usuariActual.operacionsDisponibles--
             }
 
             2 -> {
                 var entradaUsuari = llegirDosNumeros()
                 var operacio = operarDosNumeros(entradaUsuari, "resta")
-                println("El resultat de la resta entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+                println(PURPLE + "El resultat de la resta entre ${RESET}$PURPLE_BOLD${operacio[0]}$RESET ${PURPLE}i ${RESET}$PURPLE_BOLD${operacio[1]}$RESET ${PURPLE}és${RESET} $PURPLE_BOLD_BRIGHT${operacio[2]}$RESET")
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+
                 usuariActual.operacionsDisponibles--
             }
 
             3 -> {
                 var entradaUsuari = llegirDosNumeros()
                 var operacio = operarDosNumeros(entradaUsuari, "multiplicacio")
-                println("El resultat de la multiplicació entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+                println(PURPLE + "El resultat de la multiplicació entre ${RESET}$PURPLE_BOLD${operacio[0]}$RESET ${PURPLE}i ${RESET}$PURPLE_BOLD${operacio[1]}$RESET ${PURPLE}és${RESET} $PURPLE_BOLD_BRIGHT${operacio[2]}$RESET")
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+
                 usuariActual.operacionsDisponibles--
             }
 
             4 -> {
                 var entradaUsuari = llegirDosNumeros()
                 var operacio = operarDosNumeros(entradaUsuari, "divisio")
-                println("El resultat de la divisió entre $WHITE_BOLD${operacio[0]}$RESET i $WHITE_BOLD${operacio[1]}$RESET és $GREEN_BOLD${operacio[2]}$RESET")
+
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+                println(PURPLE + "El resultat de la divisó entre ${RESET}$PURPLE_BOLD${operacio[0]}$RESET ${PURPLE}i ${RESET}$PURPLE_BOLD${operacio[1]}$RESET ${PURPLE}és${RESET} $PURPLE_BOLD_BRIGHT${operacio[2]}$RESET")
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+
                 usuariActual.operacionsDisponibles--
             }
 
             5 -> {
                 var num1 = llegirUnNumeroEnter("Introdueix un número enter positiu")
                 var resultat = operar(num1, ::quadrat)
-                println("El resultat del quadrat de $WHITE_BOLD$num1$RESET és $GREEN_BOLD$resultat$RESET")
+
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+                println(PURPLE + "El resultat del quadrat de ${RESET}$PURPLE_BOLD${num1}$RESET ${PURPLE} és${RESET} $PURPLE_BOLD_BRIGHT${resultat}$RESET")
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+
                 usuariActual.operacionsDisponibles--
             }
 
             6 -> {
-                println("Et queden ${usuariActual.operacionsDisponibles} operacions restants.")
+                println(PURPLE + "-----------------------------------------------------" + RESET)
+                println(PURPLE + "Et queden ${PURPLE_BOLD}${usuariActual.operacionsDisponibles}${RESET} ${PURPLE}operacions restants." + RESET)
+                println(PURPLE + "-----------------------------------------------------"+ RESET )
             }
 
 
@@ -65,7 +87,7 @@ fun ferOperacions(usuariActual: Usuari){
             continuar = preguntaTrueFalse("\nVols seguir fent operacions? (Si/No)", "Has d'escriure 'Si' o 'No'", "si", "no")
         }
         if (usuariActual.operacionsDisponibles == 0) {
-            println("Has exhaurit les 5 operacions de prova. Fes-te premium pel mòdic preu de 299,99€ al mes per gaudir de operacions il·limitades!")
+            println(YELLOW_BOLD + "Has exhaurit les 5 operacions de prova. Fes-te premium pel mòdic preu de 299,99€ al mes per gaudir de operacions il·limitades!" + RESET)
         }
 
 } while (continuar && usuariActual.operacionsDisponibles>0)
@@ -73,14 +95,16 @@ fun ferOperacions(usuariActual: Usuari){
 
 fun registre(llistaUsuaris: MutableList<Usuari>){
     val NUMERO_OPERACIONS_DISPONIBLES:Int=5
-    println("Introdueix les teves dades a continuació")
-    var nom = readWord("Introdueix el teu nom","Has d'escriure el teu nom")
-    var cognom = readWord("Introdueix el teu cognom","Has d'escriure el teu cognom")
-    var nomUsuari=llegirNomUsuariRegistre("Introdueix nom user", llistaUsuaris)
-    var contrasenya=llegirContrasenyaRegistre("Introdueix la contrasenya", llistaUsuaris)
+    println(BOLD+"Has escollit registrar-te."+RESET)
+    var nom = readWord("Introdueix el teu nom a continuació:","Has d'escriure el teu nom")
+    var cognom = readWord("Introdueix el teu primer cognom a continuació:","Has d'escriure el teu cognom")
+    var nomUsuari=llegirNomUsuariRegistre("Introdueix un nom d'usuari:", llistaUsuaris)
+    var contrasenya=llegirContrasenyaRegistre("Introdueix una contrasenya:", llistaUsuaris)
     var operacionsDisponibles=NUMERO_OPERACIONS_DISPONIBLES
     llistaUsuaris.add(Usuari(nom,cognom,nomUsuari,contrasenya,operacionsDisponibles,1))
-    println("El registre s'ha realitzat correctament")
+    println(GREEN_BOLD+"---------------------------------------------------------------------------"+RESET)
+    println(GREEN_BOLD+"El registre de l'usuari "+RESET+ GREEN_BOLD_BRIGHT + nomUsuari + RESET + GREEN_BOLD+" s'ha realitzat correctament."+RESET)
+    println(GREEN_BOLD+"---------------------------------------------------------------------------"+RESET)
 }
 
 fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirContrasenyaLogin:String):Usuari {
@@ -88,7 +112,6 @@ fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirC
     for(usuari in llistaUsuaris) {
         if(llegirNomUsuariLogin==usuari.nomUsuari && llegirContrasenyaLogin==usuari.contrasenya){
             usuariActual=usuari
-
         }
     }
 
@@ -99,6 +122,7 @@ fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirC
 
 
 fun logout(){}
+
 
 fun generarID(llistaUsuaris:MutableList<Usuari>):Int{
     var idMax:Int=0
@@ -115,7 +139,6 @@ fun generarID(llistaUsuaris:MutableList<Usuari>):Int{
     var idNou:Int = idMax+1
     return idNou
 }
-
 fun operacionsDisponibles(usuariActual:Usuari) {
     if(usuariActual.operacionsDisponibles>0){
         println("Et queden ${usuariActual.operacionsDisponibles} operacions disponibles.")
@@ -127,8 +150,6 @@ fun operacionsDisponibles(usuariActual:Usuari) {
     }
 
 }
-
-
 fun registrarUsuari() {
     var llistaUsuaris:MutableList<Usuari> = mutableListOf<Usuari>()
     val NUMERO_OPERACIONS_DISPONIBLES:Int=5
@@ -156,7 +177,6 @@ fun registrarUsuari() {
 
     var dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,"pep",operacionsDisponibles,0)
 }
-
 
 /**
  * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
@@ -188,11 +208,11 @@ fun llegirNomUsuariRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<U
                 }
             }
             if(usuariIntroduit.contains(" ")){
-                println("ERROR: El nom d'usuari no pot contenir espais")
+                println(RED_BOLD + "El nom d'usuari no pot contenir espais." + RESET)
                 correctDataType =false
             }
             if(valorRepetit){
-                println("ERROR: El nom que has introduït ja esta registrat.")
+                println(RED_BOLD + "El nom d'usuari que has introduït ja esta registrat." + RESET)
             }
         }
     }while(!correctDataType || valorRepetit)
@@ -201,7 +221,7 @@ fun llegirNomUsuariRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<U
 }
 
 /**
- * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
+ * Aquesta funció serveix per validar que el nom introduït per l'usuari està registrat
  * @author agustí.lópez
  * @since 19/12/2024
  * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
@@ -229,7 +249,7 @@ fun llegirNomUsuariLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Usua
                 }
             }
             if(!usuariRegistrat){
-                println("ERROR: El nom que has introduït no esta registrat.")
+                println(RED_BOLD + "El nom que has introduït no esta registrat." + RESET)
             }
         }
     }while(!correctDataType || !usuariRegistrat)
@@ -238,12 +258,13 @@ fun llegirNomUsuariLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Usua
 }
 
 /**
- * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
+ * Aquesta funció serveix per validar que la contrasenya introduïda correspon amb el nom d'usuari
  * @author agustí.lópez
  * @since 19/12/2024
  * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
  * @param llistaUsuaris Llista de tots els usuaris registrats actualment
- * @return Nom de l'usuari validat
+ * @param nomUsuariIntroduit Nom d'usuari introduït prèviament
+ * @return Contrasenya validada
  */
 fun llegirContrasenyaLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>,nomUsuariIntroduit:String): String {
     var contrasenyaIntroduida: String = ""
@@ -264,7 +285,7 @@ fun llegirContrasenyaLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Us
                     if (contrasenyaIntroduida == usuari.contrasenya) {
                         contransenyaCorrecte = true
                     } else {
-                        println("La contrasenya que has introduït no correspon amb el nom d'usuari.")
+                        println(RED_BOLD + "La contrasenya que has introduït no correspon amb el nom d'usuari." + RESET)
                         contransenyaCorrecte = false
                     }
                 }
@@ -277,12 +298,12 @@ fun llegirContrasenyaLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Us
 
 
 /**
- * Aquesta funció serveix per validar que el nom introduït per l'usuari no està ja registrat
+ * Aquesta funció serveix per validar que la contrasenya introduïda compleix amb els criteris corresponents
  * @author agustí.lópez
  * @since 19/12/2024
  * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
  * @param llistaUsuaris Llista de tots els usuaris registrats actualment
- * @return Nom de l'usuari validat
+ * @return Contrasenya validada
  */
 fun llegirContrasenyaRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>
 ): String{
@@ -301,7 +322,7 @@ fun llegirContrasenyaRegistre(missatgeEntrada: String, llistaUsuaris:MutableList
             contrasenyaIntroduida = scan.next()
 
             if(contrasenyaIntroduida.length<5){
-                println("ERROR: La contransenya ha de tenir un mínim de 5 caràcters.")
+                println(RED_BOLD + "La contrasenya ha de tenir un mínim de 5 caràcters." + RESET)
                 contransenyaSegura=false
             }else contransenyaSegura=true
 
@@ -336,6 +357,7 @@ fun mostrarMenu(
     opc5: String = "Quadrat", opc6: String = "Mostrar operacions restants", opc0: String = "Extra"
 ): String {
     var menu: String = """
+        ------------------------------------------
         Escolleix una de les següents opcions:
         
         1. $opc1
@@ -345,7 +367,7 @@ fun mostrarMenu(
         5. $opc5
         6. $opc6
         0. $opc0
-        
+        ------------------------------------------
     """.trimIndent()
     return menu
 }
@@ -362,13 +384,14 @@ fun mostrarMenu(
     opc1: String, opc2: String, opc3: String, opc0: String
 ): String {
     var menu: String = """
+        ------------------------------------------
         Escolleix una de les següents opcions:
         
         1. $opc1
         2. $opc2
         3. $opc3
         0. $opc0
-        
+        ------------------------------------------
     """.trimIndent()
     return menu
 }
@@ -409,11 +432,12 @@ fun mostrarMenu(
     opc1: String, opc2: String
 ): String {
     var menu: String = """
+        ------------------------------------------
         Escolleix una de les següents opcions:
         
         1. $opc1
         2. $opc2
-        
+        ------------------------------------------
     """.trimIndent()
     return menu
 }
