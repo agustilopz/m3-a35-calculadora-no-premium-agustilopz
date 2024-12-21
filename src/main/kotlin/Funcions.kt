@@ -14,7 +14,7 @@ fun ferOperacions(usuariActual: Usuari){
     do {
         var continuar = true
         val MENU: String = mostrarMenu(opc0 = "Sortir")
-        println(MENU)
+        println(PURPLE_BOLD+ MENU + RESET)
 
         var seleccioMenu = triarOpcioMenu(nMin = 0, nMax = 6, missatge = "Escriu l'opció escollida a continuació:")
 
@@ -85,7 +85,7 @@ fun ferOperacions(usuariActual: Usuari){
             }
         }
 
-        //println("Et queden ${usuariActual.operacionsDisponibles} operacions disponibles")
+        // Controlem les operacions restants que li queden a l'usuari
         if (continuar && usuariActual.operacionsDisponibles > 0) {
             continuar = preguntaTrueFalse("\nVols seguir fent operacions? (Si/No)", "Has d'escriure 'Si' o 'No'", "si", "no")
         }

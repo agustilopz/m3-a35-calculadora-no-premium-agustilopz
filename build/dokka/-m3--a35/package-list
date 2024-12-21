@@ -1,7 +1,73 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:org.example.models////PointingToDeclaration/-m3--a35/org.example.models/index.html
+$dokka.location:org.example.models/Usuari///PointingToDeclaration/-m3--a35/org.example.models/-usuari/index.html
+$dokka.location:org.example.models/Usuari/Usuari/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/-m3--a35/org.example.models/-usuari/-usuari.html
+$dokka.location:org.example.models/Usuari/getCognom/#/PointingToDeclaration/-m3--a35/org.example.models/-usuari/get-cognom.html
+$dokka.location:org.example.models/Usuari/getContrasenya/#/PointingToDeclaration/-m3--a35/org.example.models/-usuari/get-contrasenya.html
+$dokka.location:org.example.models/Usuari/getId/#/PointingToDeclaration/-m3--a35/org.example.models/-usuari/get-id.html
+$dokka.location:org.example.models/Usuari/getNom/#/PointingToDeclaration/-m3--a35/org.example.models/-usuari/get-nom.html
+$dokka.location:org.example.models/Usuari/getNomUsuari/#/PointingToDeclaration/-m3--a35/org.example.models/-usuari/get-nom-usuari.html
+$dokka.location:org.example.models/Usuari/getOperacionsDisponibles/#/PointingToDeclaration/-m3--a35/org.example.models/-usuari/get-operacions-disponibles.html
+$dokka.location:org.example.models/Usuari/setCognom/#kotlin.String/PointingToDeclaration/-m3--a35/org.example.models/-usuari/set-cognom.html
+$dokka.location:org.example.models/Usuari/setContrasenya/#kotlin.String/PointingToDeclaration/-m3--a35/org.example.models/-usuari/set-contrasenya.html
+$dokka.location:org.example.models/Usuari/setId/#kotlin.Int/PointingToDeclaration/-m3--a35/org.example.models/-usuari/set-id.html
+$dokka.location:org.example.models/Usuari/setNom/#kotlin.String/PointingToDeclaration/-m3--a35/org.example.models/-usuari/set-nom.html
+$dokka.location:org.example.models/Usuari/setNomUsuari/#kotlin.String/PointingToDeclaration/-m3--a35/org.example.models/-usuari/set-nom-usuari.html
+$dokka.location:org.example.models/Usuari/setOperacionsDisponibles/#kotlin.Int/PointingToDeclaration/-m3--a35/org.example.models/-usuari/set-operacions-disponibles.html
 $dokka.location:org.example////PointingToDeclaration/-m3--a35/org.example/index.html
+$dokka.location:org.example/FuncionsKt///PointingToDeclaration/-m3--a35/org.example/-funcions-kt/index.html
+$dokka.location:org.example/FuncionsKt/benvinguda/#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/benvinguda.html
+$dokka.location:org.example/FuncionsKt/bold/#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/bold.html
+$dokka.location:org.example/FuncionsKt/divisio/#kotlin.Float#kotlin.Float/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/divisio.html
+$dokka.location:org.example/FuncionsKt/ferOperacions/#org.example.models.Usuari/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/fer-operacions.html
+$dokka.location:org.example/FuncionsKt/generarID/#kotlin.collections.MutableList[org.example.models.Usuari]/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/generar-i-d.html
+$dokka.location:org.example/FuncionsKt/llegirContrasenyaLogin/#kotlin.String#kotlin.collections.MutableList[org.example.models.Usuari]#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/llegir-contrasenya-login.html
+$dokka.location:org.example/FuncionsKt/llegirContrasenyaRegistre/#kotlin.String#kotlin.collections.MutableList[org.example.models.Usuari]/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/llegir-contrasenya-registre.html
+$dokka.location:org.example/FuncionsKt/llegirDosNumeros/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/llegir-dos-numeros.html
+$dokka.location:org.example/FuncionsKt/llegirNomUsuariLogin/#kotlin.String#kotlin.collections.MutableList[org.example.models.Usuari]/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/llegir-nom-usuari-login.html
+$dokka.location:org.example/FuncionsKt/llegirNomUsuariRegistre/#kotlin.String#kotlin.collections.MutableList[org.example.models.Usuari]/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/llegir-nom-usuari-registre.html
+$dokka.location:org.example/FuncionsKt/llegirUnNumeroEnter/#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/llegir-un-numero-enter.html
+$dokka.location:org.example/FuncionsKt/login/#kotlin.collections.MutableList[org.example.models.Usuari]#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/login.html
+$dokka.location:org.example/FuncionsKt/logout/#/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/logout.html
+$dokka.location:org.example/FuncionsKt/mostrarMenu/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/mostrar-menu.html
+$dokka.location:org.example/FuncionsKt/mostrarMenu/#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/mostrar-menu.html
+$dokka.location:org.example/FuncionsKt/mostrarMenu/#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/mostrar-menu.html
+$dokka.location:org.example/FuncionsKt/mostrarMenu/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/mostrar-menu.html
+$dokka.location:org.example/FuncionsKt/mostrarMenu/#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/mostrar-menu.html
+$dokka.location:org.example/FuncionsKt/multiplicacio/#kotlin.Float#kotlin.Float/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/multiplicacio.html
+$dokka.location:org.example/FuncionsKt/operacionsDisponibles/#org.example.models.Usuari/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/operacions-disponibles.html
+$dokka.location:org.example/FuncionsKt/operar/#kotlin.Float#kotlin.Float#kotlin.Function2[kotlin.Float,kotlin.Float,kotlin.Float]/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/operar.html
+$dokka.location:org.example/FuncionsKt/operar/#kotlin.Int#kotlin.Function1[kotlin.Int,kotlin.Int]/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/operar.html
+$dokka.location:org.example/FuncionsKt/operarDosNumeros/#kotlin.Array[kotlin.Float]#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/operar-dos-numeros.html
+$dokka.location:org.example/FuncionsKt/quadrat/#kotlin.Int/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/quadrat.html
+$dokka.location:org.example/FuncionsKt/registrarUsuari/#/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/registrar-usuari.html
+$dokka.location:org.example/FuncionsKt/registre/#kotlin.collections.MutableList[org.example.models.Usuari]/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/registre.html
+$dokka.location:org.example/FuncionsKt/resta/#kotlin.Float#kotlin.Float/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/resta.html
+$dokka.location:org.example/FuncionsKt/resultatOperacioDosNumeros/#kotlin.Array[kotlin.Float]#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/resultat-operacio-dos-numeros.html
+$dokka.location:org.example/FuncionsKt/resultatOperacioUnNumero/#kotlin.Int#kotlin.String/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/resultat-operacio-un-numero.html
+$dokka.location:org.example/FuncionsKt/suma/#kotlin.Float#kotlin.Float/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/suma.html
+$dokka.location:org.example/FuncionsKt/triarOpcioMenu/#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/-m3--a35/org.example/-funcions-kt/triar-opcio-menu.html
 $dokka.location:org.example/MainKt///PointingToDeclaration/-m3--a35/org.example/-main-kt/index.html
+$dokka.location:org.example/MainKt/getLlistaUsuaris/#/PointingToDeclaration/-m3--a35/org.example/-main-kt/get-llista-usuaris.html
 $dokka.location:org.example/MainKt/main/#/PointingToDeclaration/-m3--a35/org.example/-main-kt/main.html
+$dokka.location:utils////PointingToDeclaration/-m3--a35/utils/index.html
+$dokka.location:utils/ConsoleColorsKt///PointingToDeclaration/-m3--a35/utils/-console-colors-kt/index.html
+$dokka.location:utils/UtilitiesKt///PointingToDeclaration/-m3--a35/utils/-utilities-kt/index.html
+$dokka.location:utils/UtilitiesKt/arrodonimentDecimals/#kotlin.Float#kotlin.Int/PointingToDeclaration/-m3--a35/utils/-utilities-kt/arrodoniment-decimals.html
+$dokka.location:utils/UtilitiesKt/demanarNumeroPositiu/#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/demanar-numero-positiu.html
+$dokka.location:utils/UtilitiesKt/getScan/#/PointingToDeclaration/-m3--a35/utils/-utilities-kt/get-scan.html
+$dokka.location:utils/UtilitiesKt/preguntaTrueFalse/#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/pregunta-true-false.html
+$dokka.location:utils/UtilitiesKt/readBoolean/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-boolean.html
+$dokka.location:utils/UtilitiesKt/readChar/#kotlin.String#kotlin.String#kotlin.Int/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-char.html
+$dokka.location:utils/UtilitiesKt/readChar/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-char.html
+$dokka.location:utils/UtilitiesKt/readFloat/#kotlin.String#kotlin.String#kotlin.String#kotlin.Float#kotlin.Float/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-float.html
+$dokka.location:utils/UtilitiesKt/readFloat/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-float.html
+$dokka.location:utils/UtilitiesKt/readInt/#kotlin.String#kotlin.String#kotlin.String#kotlin.Int#kotlin.Int/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-int.html
+$dokka.location:utils/UtilitiesKt/readInt/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-int.html
+$dokka.location:utils/UtilitiesKt/readSentence/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-sentence.html
+$dokka.location:utils/UtilitiesKt/readWord/#kotlin.String#kotlin.String/PointingToDeclaration/-m3--a35/utils/-utilities-kt/read-word.html
 org.example
+org.example.models
+utils
 
