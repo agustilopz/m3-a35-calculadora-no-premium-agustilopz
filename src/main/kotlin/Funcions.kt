@@ -4,7 +4,12 @@ import org.example.models.Usuari
 import utils.*
 
 
-
+/**
+ * Aquesta funció serveix per oferir a l'usuari una sèrie d'operacions a realitzar i dur-les a terme en funció de la selecció de l'usuari. Aquesta funció crida i agrupa diferents funcions externes.
+ * @author agustí.lópez
+ * @since 20/12/2024
+ * @param usuariActual Usuari que té la sessió iniciada
+ */
 fun ferOperacions(usuariActual: Usuari){
     do {
         var continuar = true
@@ -75,14 +80,12 @@ fun ferOperacions(usuariActual: Usuari){
                 println(PURPLE + "-----------------------------------------------------"+ RESET )
             }
 
-
             0 -> {
                 continuar = false
             }
         }
 
-        println("Et queden ${usuariActual.operacionsDisponibles} operacions disponibles")
-        //println(dadesUsuari)
+        //println("Et queden ${usuariActual.operacionsDisponibles} operacions disponibles")
         if (continuar && usuariActual.operacionsDisponibles > 0) {
             continuar = preguntaTrueFalse("\nVols seguir fent operacions? (Si/No)", "Has d'escriure 'Si' o 'No'", "si", "no")
         }
@@ -93,6 +96,12 @@ fun ferOperacions(usuariActual: Usuari){
 } while (continuar && usuariActual.operacionsDisponibles>0)
 }
 
+/**
+ * Aquesta funció serveix realitzar el registre d'un usuari mitjançant la crida de diferents funcions, i mostrar la informació pertinent
+ * @author agustí.lópez
+ * @since 20/12/2024
+ * @param llistaUsuaris Llista de tots els usuaris registrats
+ */
 fun registre(llistaUsuaris: MutableList<Usuari>){
     val NUMERO_OPERACIONS_DISPONIBLES:Int=5
     println(BOLD+"Has escollit registrar-te."+RESET)
@@ -107,6 +116,15 @@ fun registre(llistaUsuaris: MutableList<Usuari>){
     println(GREEN_BOLD+"---------------------------------------------------------------------------"+RESET)
 }
 
+/**
+ * Aquesta funció serveix per guardar les dades de l'usuari que ha iniciat sessió
+ * @author agustí.lópez
+ * @since 20/12/2024
+ * @param llistaUsuaris Llista de tots els usuaris registrats
+ * @param llegirNomUsuariLogin Nom d'usuari ja validat prèviament
+ * @param llegirContrasenyaLogin Contrasenya de l'usuari ja validada prèviament
+ * @return Usuari que té la sessió inciciada (data class)
+ */
 fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirContrasenyaLogin:String):Usuari {
     var usuariActual:Usuari=Usuari("","","","",0,1)
     for(usuari in llistaUsuaris) {
@@ -114,9 +132,7 @@ fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirC
             usuariActual=usuari
         }
     }
-
     return usuariActual
-
 }
 
 
@@ -402,6 +418,7 @@ fun mostrarMenu(
  * @since 17/12/2024
  * @param opc0 Opció de sortida per defecte
  * @param opc1 Opció 1 del menú
+ * @param opc2 Opció 2 del menú
  * @return resultat String del missatge del menú
  */
 fun mostrarMenu(
@@ -424,8 +441,8 @@ fun mostrarMenu(
  * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
  * @author agustí.lópez
  * @since 17/12/2024
- * @param opc0 Opció de sortida per defecte
  * @param opc1 Opció 1 del menú
+ * @param opc2 Opció 2 del menú
  * @return resultat String del missatge del menú
  */
 fun mostrarMenu(
@@ -458,7 +475,6 @@ fun mostrarMenu(
         
         1. $opc1
 
-        
     """.trimIndent()
     return menu
 }
