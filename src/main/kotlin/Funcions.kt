@@ -4,6 +4,77 @@ import org.example.models.Usuari
 import utils.*
 
 
+/* -------------------------------------------- Funcions que criden a altres funcions --------------------------------------------------*/
+/**
+ * Aquesta funció serveix realitzar el registre d'un usuari mitjançant la crida de diferents funcions, i mostrar la informació pertinent
+ * @author agustí.lópez
+ * @since 20/12/2024
+ * @param llistaUsuaris Llista de tots els usuaris registrats
+ */
+fun registre(llistaUsuaris: MutableList<Usuari>){
+    val NUMERO_OPERACIONS_DISPONIBLES:Int=5
+    println(BOLD+"Has escollit registrar-te."+RESET)
+    var nom = readWord("Introdueix el teu nom a continuació:","Has d'escriure el teu nom")
+    var cognom = readWord("Introdueix el teu primer cognom a continuació:","Has d'escriure el teu cognom")
+    var nomUsuari=llegirNomUsuariRegistre("Introdueix un nom d'usuari:", llistaUsuaris)
+    var contrasenya=llegirContrasenyaRegistre("Introdueix una contrasenya:", llistaUsuaris)
+    var operacionsDisponibles=NUMERO_OPERACIONS_DISPONIBLES
+    llistaUsuaris.add(Usuari(nom,cognom,nomUsuari,contrasenya,operacionsDisponibles,1))
+    println(GREEN_BOLD+"---------------------------------------------------------------------------"+RESET)
+    println(GREEN_BOLD+"El registre de l'usuari "+RESET+ GREEN_BOLD_BRIGHT + nomUsuari + RESET + GREEN_BOLD+" s'ha realitzat correctament."+RESET)
+    println(GREEN_BOLD+"---------------------------------------------------------------------------"+RESET)
+}
+
+/**
+ * Aquesta funció serveix realitzar l'inici de sessió d'un usuari mitjançant la crida de diferents funcions, i mostrar la informació pertinent
+ * @author agustí.lópez
+ * @since 22/12/2024
+ * @param MENU Submenú a mostrar un cop l'usuari ha iniciat sessió
+ */
+fun login(){
+
+    val MENU_LOGIN: String = mostrarMenu("Realitzar operacions", "Logout")
+
+    if (llistaUsuaris.isEmpty()) {
+        println(WHITE_BOLD + "--------------------------------------------------------------------------------------------" + RESET)
+        println(WHITE_BOLD + "Actualment no hi ha cap usuari registrat, per poder iniciar sessió has d'estar registrat." + RESET)
+        println(WHITE_BOLD + "--------------------------------------------------------------------------------------------" + RESET)
+    } else {
+        var llegirNomUsuari = llegirNomUsuariLogin("Escriu el nom d'usuari", llistaUsuaris)
+        var llegirContrasenyaLogin =
+            llegirContrasenyaLogin("Escriu la contrasneya", llistaUsuaris, llegirNomUsuari)
+        var usuariActual = usuariConnectat(llistaUsuaris, llegirNomUsuari, llegirContrasenyaLogin)
+        println(GREEN_BOLD + "---------------------------------------------------------------------------" + RESET)
+        println(GREEN_BOLD + "Benvingut, " + RESET + GREEN_BOLD_BRIGHT + usuariActual.nom + " " + usuariActual.cognom + RESET + GREEN_BOLD + "!" + RESET)
+        println(GREEN_BOLD + "---------------------------------------------------------------------------" + RESET)
+
+        // Un cop l'usuari ja ha iniciat sessió, mostrarem el següent menú (Fer operacions/Logout)
+        do {
+            println(CYAN_BOLD + MENU_LOGIN + RESET)
+            var seleccioMenuLogin =
+                triarOpcioMenu(nMin = 1, nMax = 2, missatge = "Escriu l'opció escollida a continuació:")
+            when (seleccioMenuLogin) {
+
+                1 -> {
+                    // FER OPERACIONS
+                    if (usuariActual.operacionsDisponibles <= 0) {
+                        println(YELLOW_BOLD + "------------------------------------------------------------------------------------------------------------------------------" + RESET)
+                        println(YELLOW_BOLD + "Has exhaurit les 5 operacions de prova. Fes-te premium pel mòdic preu de 299,99€ al mes per gaudir de operacions il·limitades!" + RESET)
+                        println(YELLOW_BOLD + "------------------------------------------------------------------------------------------------------------------------------" + RESET)
+                    } else {
+                        // Si l'usuari té operacions disponibles, mostrem el menú d'operacions
+                        var operar = ferOperacions(usuariActual)
+                    }
+                }
+
+                2 -> {
+                    // LOGOUT
+                }
+            }
+        } while (seleccioMenuLogin != 2)
+    }
+}
+
 /**
  * Aquesta funció serveix per oferir a l'usuari una sèrie d'operacions a realitzar i dur-les a terme en funció de la selecció de l'usuari. Aquesta funció crida i agrupa diferents funcions externes.
  * @author agustí.lópez
@@ -53,7 +124,7 @@ fun ferOperacions(usuariActual: Usuari){
             }
 
             4 -> {
-                var entradaUsuari = llegirDosNumeros()
+                var entradaUsuari = llegirDosNumerosDivisio()
                 var operacio = operarDosNumeros(entradaUsuari, "divisio")
 
                 println(PURPLE + "-----------------------------------------------------" + RESET)
@@ -68,7 +139,7 @@ fun ferOperacions(usuariActual: Usuari){
                 var resultat = operar(num1, ::quadrat)
 
                 println(PURPLE + "-----------------------------------------------------" + RESET)
-                println(PURPLE + "El resultat del quadrat de ${RESET}$PURPLE_BOLD${num1}$RESET ${PURPLE} és${RESET} $PURPLE_BOLD_BRIGHT${resultat}$RESET")
+                println(PURPLE + "El resultat del quadrat de ${RESET}$PURPLE_BOLD${num1}$RESET ${PURPLE}és${RESET} $PURPLE_BOLD_BRIGHT${resultat}$RESET")
                 println(PURPLE + "-----------------------------------------------------" + RESET)
 
                 usuariActual.operacionsDisponibles--
@@ -90,32 +161,49 @@ fun ferOperacions(usuariActual: Usuari){
             continuar = preguntaTrueFalse("\nVols seguir fent operacions? (Si/No)", "Has d'escriure 'Si' o 'No'", "si", "no")
         }
         if (usuariActual.operacionsDisponibles == 0) {
+            println(YELLOW_BOLD + "------------------------------------------------------------------------------------------------------------------------------" + RESET)
             println(YELLOW_BOLD + "Has exhaurit les 5 operacions de prova. Fes-te premium pel mòdic preu de 299,99€ al mes per gaudir de operacions il·limitades!" + RESET)
+            println(YELLOW_BOLD + "------------------------------------------------------------------------------------------------------------------------------" + RESET)
+
         }
 
-} while (continuar && usuariActual.operacionsDisponibles>0)
+    } while (continuar && usuariActual.operacionsDisponibles>0)
 }
 
 /**
- * Aquesta funció serveix realitzar el registre d'un usuari mitjançant la crida de diferents funcions, i mostrar la informació pertinent
+ * Aquesta funció serveix per esborrar un usuari de la llista d'usuaris registrats, prèvia verificació del nom i contrasenya.
  * @author agustí.lópez
- * @since 20/12/2024
- * @param llistaUsuaris Llista de tots els usuaris registrats
+ * @since 22/12/2024
  */
-fun registre(llistaUsuaris: MutableList<Usuari>){
-    val NUMERO_OPERACIONS_DISPONIBLES:Int=5
-    println(BOLD+"Has escollit registrar-te."+RESET)
-    var nom = readWord("Introdueix el teu nom a continuació:","Has d'escriure el teu nom")
-    var cognom = readWord("Introdueix el teu primer cognom a continuació:","Has d'escriure el teu cognom")
-    var nomUsuari=llegirNomUsuariRegistre("Introdueix un nom d'usuari:", llistaUsuaris)
-    var contrasenya=llegirContrasenyaRegistre("Introdueix una contrasenya:", llistaUsuaris)
-    var operacionsDisponibles=NUMERO_OPERACIONS_DISPONIBLES
-    llistaUsuaris.add(Usuari(nom,cognom,nomUsuari,contrasenya,operacionsDisponibles,1))
-    println(GREEN_BOLD+"---------------------------------------------------------------------------"+RESET)
-    println(GREEN_BOLD+"El registre de l'usuari "+RESET+ GREEN_BOLD_BRIGHT + nomUsuari + RESET + GREEN_BOLD+" s'ha realitzat correctament."+RESET)
-    println(GREEN_BOLD+"---------------------------------------------------------------------------"+RESET)
+fun esborrarUsuari(){
+    if (llistaUsuaris.isEmpty()) {
+        println(WHITE_BOLD + "--------------------------------------------" + RESET)
+        println(WHITE_BOLD + "Actualment no hi ha cap usuari registrat." + RESET)
+        println(WHITE_BOLD + "--------------------------------------------" + RESET)
+
+    } else {
+        val llegirNomUsuari = llegirNomUsuariLogin("Escriu el nom d'usuari", llistaUsuaris)
+        val llegirContrasenyaLogin =
+            llegirContrasenyaLogin("Escriu la contrasneya", llistaUsuaris, llegirNomUsuari)
+        var usuariABorrar = usuariConnectat(llistaUsuaris, llegirNomUsuari, llegirContrasenyaLogin)
+        var borrarUsuari = preguntaTrueFalse(
+            "Estàs segur que vols el·liminar l'usuari $llegirNomUsuari? Aquesta acció és irreversible. (Si/No)",
+            "Has d'escriure 'Si' o 'No'",
+            "si",
+            "no"
+        )
+        if (borrarUsuari) {
+            llistaUsuaris.remove(usuariABorrar)
+            println(RED + "--------------------------------------------" + RESET)
+            println(RED + "L'usuari ${RED_BOLD}${llegirNomUsuari}${RESET}$RED s'ha eliminat correctament." + RESET)
+            println(RED + "--------------------------------------------" + RESET)
+        }
+    }
+
+
 }
 
+/* ------------------------------------------------- Funcions base -------------------------------------------------------*/
 /**
  * Aquesta funció serveix per guardar les dades de l'usuari que ha iniciat sessió
  * @author agustí.lópez
@@ -125,7 +213,7 @@ fun registre(llistaUsuaris: MutableList<Usuari>){
  * @param llegirContrasenyaLogin Contrasenya de l'usuari ja validada prèviament
  * @return Usuari que té la sessió inciciada (data class)
  */
-fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirContrasenyaLogin:String):Usuari {
+fun usuariConnectat(llistaUsuaris: MutableList<Usuari>, llegirNomUsuariLogin:String, llegirContrasenyaLogin:String):Usuari {
     var usuariActual:Usuari=Usuari("","","","",0,1)
     for(usuari in llistaUsuaris) {
         if(llegirNomUsuariLogin==usuari.nomUsuari && llegirContrasenyaLogin==usuari.contrasenya){
@@ -133,65 +221,6 @@ fun login(llistaUsuaris: MutableList<Usuari>,llegirNomUsuariLogin:String,llegirC
         }
     }
     return usuariActual
-}
-
-
-
-fun logout(){}
-
-
-fun generarID(llistaUsuaris:MutableList<Usuari>):Int{
-    var idMax:Int=0
-    if(llistaUsuaris.isEmpty()) {
-        idMax=0
-    }
-    else {
-        for (usuari in llistaUsuaris) {
-            if (usuari.id > idMax) {
-                idMax = usuari.id
-            }
-        }
-    }
-    var idNou:Int = idMax+1
-    return idNou
-}
-fun operacionsDisponibles(usuariActual:Usuari) {
-    if(usuariActual.operacionsDisponibles>0){
-        println("Et queden ${usuariActual.operacionsDisponibles} operacions disponibles.")
-        //Operacions
-        usuariActual.operacionsDisponibles--
-
-    }else {
-        println("Has esgotat totes les operacions de prova.")
-    }
-
-}
-fun registrarUsuari() {
-    var llistaUsuaris:MutableList<Usuari> = mutableListOf<Usuari>()
-    val NUMERO_OPERACIONS_DISPONIBLES:Int=5
-    println("Introdueix les teves dades a continuació")
-    var nomUsuari = readWord("Introdueix el teu nom","Has d'escriure el teu nom")
-    var cognomUsuari = readWord("Introdueix el teu cognom","Has d'escriure el teu cognom")
-    var username= llegirNomUsuariRegistre("Introdueix el teu nom d'usuari",llistaUsuaris)
-    var contrasenya = readWord("Introdueix una contrasenya","Has d'escriure una contrasenya")
-    var operacionsDisponibles=NUMERO_OPERACIONS_DISPONIBLES
-
-    var idMax:Int=0
-    if(llistaUsuaris.isEmpty()) {
-        idMax=0
-    }
-    else {
-        for (usuari in llistaUsuaris) {
-            if (usuari.id > idMax) {
-                idMax = usuari.id
-            }
-        }
-    }
-    var idNou=idMax+1
-
-    llistaUsuaris.add(Usuari(nomUsuari,cognomUsuari,username,contrasenya,operacionsDisponibles,idNou))
-
-    var dadesUsuari = Usuari(nomUsuari,cognomUsuari,contrasenya,"pep",operacionsDisponibles,0)
 }
 
 /**
@@ -235,6 +264,42 @@ fun llegirNomUsuariRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<U
 
     return usuariIntroduit
 }
+
+/**
+ * Aquesta funció serveix per validar que la contrasenya introduïda compleix amb els criteris corresponents
+ * @author agustí.lópez
+ * @since 19/12/2024
+ * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
+ * @param llistaUsuaris Llista de tots els usuaris registrats actualment
+ * @return Contrasenya validada
+ */
+fun llegirContrasenyaRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>
+): String{
+
+    var contrasenyaIntroduida : String = ""
+    var correctDataType : Boolean = false
+    var contransenyaSegura : Boolean = false
+
+    do{
+        println(missatgeEntrada)
+        correctDataType = scan.hasNext()
+
+        if (!correctDataType){
+            println(RED_BACKGROUND_BRIGHT + "ERROR: Has d'introduir un nom d'usuari"+ RESET)
+        }else{
+            contrasenyaIntroduida = scan.next()
+
+            if(contrasenyaIntroduida.length<5){
+                println(RED_BOLD + "La contrasenya ha de tenir un mínim de 5 caràcters." + RESET)
+                contransenyaSegura=false
+            }else contransenyaSegura=true
+
+        }
+    }while(!correctDataType || !contransenyaSegura)
+
+    return contrasenyaIntroduida
+}
+
 
 /**
  * Aquesta funció serveix per validar que el nom introduït per l'usuari està registrat
@@ -314,41 +379,6 @@ fun llegirContrasenyaLogin(missatgeEntrada: String, llistaUsuaris:MutableList<Us
 
 
 /**
- * Aquesta funció serveix per validar que la contrasenya introduïda compleix amb els criteris corresponents
- * @author agustí.lópez
- * @since 19/12/2024
- * @param missatgeEntrada Missatge d'entrada que es mostrarà a l'usuari
- * @param llistaUsuaris Llista de tots els usuaris registrats actualment
- * @return Contrasenya validada
- */
-fun llegirContrasenyaRegistre(missatgeEntrada: String, llistaUsuaris:MutableList<Usuari>
-): String{
-
-    var contrasenyaIntroduida : String = ""
-    var correctDataType : Boolean = false
-    var contransenyaSegura : Boolean = false
-
-    do{
-        println(missatgeEntrada)
-        correctDataType = scan.hasNext()
-
-        if (!correctDataType){
-            println(RED_BACKGROUND_BRIGHT + "ERROR: Has d'introduir un nom d'usuari"+ RESET)
-        }else{
-            contrasenyaIntroduida = scan.next()
-
-            if(contrasenyaIntroduida.length<5){
-                println(RED_BOLD + "La contrasenya ha de tenir un mínim de 5 caràcters." + RESET)
-                contransenyaSegura=false
-            }else contransenyaSegura=true
-
-        }
-    }while(!correctDataType || !contransenyaSegura)
-
-    return contrasenyaIntroduida
-}
-
-/**
  * Aquesta funció serveix per mostrar un missatge de benvinguda personalitzable
  * @author agustí.lópez
  * @since 10/12/2024
@@ -416,31 +446,6 @@ fun mostrarMenu(
  * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
  * @author agustí.lópez
  * @since 17/12/2024
- * @param opc0 Opció de sortida per defecte
- * @param opc1 Opció 1 del menú
- * @param opc2 Opció 2 del menú
- * @return resultat String del missatge del menú
- */
-fun mostrarMenu(
-    opc1: String, opc2: String, opc0: String
-): String {
-    var menu: String = """
-        Escolleix una de les següents opcions:
-        
-        1. $opc1
-        2. $opc2
-        0. $opc0
-        
-    """.trimIndent()
-    return menu
-}
-
-
-
-/**
- * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
- * @author agustí.lópez
- * @since 17/12/2024
  * @param opc1 Opció 1 del menú
  * @param opc2 Opció 2 del menú
  * @return resultat String del missatge del menú
@@ -455,26 +460,6 @@ fun mostrarMenu(
         1. $opc1
         2. $opc2
         ------------------------------------------
-    """.trimIndent()
-    return menu
-}
-
-/**
- * Aquesta funció serveix per mostrar un menú amb una sèrie d'opcions personalitzables
- * @author agustí.lópez
- * @since 17/12/2024
- * @param opc0 Opció de sortida per defecte
- * @param opc1 Opció 1 del menú
- * @return resultat String del missatge del menú
- */
-fun mostrarMenu(
-    opc1: String
-): String {
-    var menu: String = """
-        Escolleix una de les següents opcions:
-        
-        1. $opc1
-
     """.trimIndent()
     return menu
 }
@@ -621,10 +606,6 @@ fun llegirUnNumeroEnter(missatge: String = "Introdueix un número positiu a cont
         } else {
             numero = scan.nextInt()
             scan.nextLine()
-            if (numero <= 0) {
-                println(RED_BOLD + "ERROR: Has d'introduir un número positiu" + RESET)
-                valorCorrecte = false
-            }
         }
     } while (valorCorrecte == false)
     return numero
@@ -637,7 +618,7 @@ fun llegirUnNumeroEnter(missatge: String = "Introdueix un número positiu a cont
  * @author agustí.lópez
  * @since 10/12/2024
  * @param missatge Missatge que es mostrarà en pantalla
- * @return resultat Array amb els dos números introduits per l'usuari
+ * @return resultat Array amb els dos números introduïts per l'usuari
  */
 fun llegirDosNumeros(
     missatge1: String = "Introdueix el primer número positius",
@@ -655,10 +636,6 @@ fun llegirDosNumeros(
         } else {
             num1 = scan.nextFloat()
             scan.nextLine()
-            if (num1 <= 0.0f) {
-                println(RED_BOLD + "ERROR: Has d'introduir un número positiu" + RESET)
-                valorCorrecte = false
-            }
         }
     } while (valorCorrecte == false)
     valorCorrecte = true
@@ -672,8 +649,51 @@ fun llegirDosNumeros(
         } else {
             num2 = scan.nextFloat()
             scan.nextLine()
-            if (num2 <= 0.0f) {
-                println(RED_BOLD + "ERROR: Has d'introduir un número positiu" + RESET)
+        }
+    } while (valorCorrecte == false)
+    resultat = arrayOf(num1, num2)
+    return resultat
+
+}
+
+/**
+ * Aquesta funció pot ser utilitzada per a llegir, controlar i emmagatzemar dos números de tipus float introduit per l'usuari
+ * @author agustí.lópez
+ * @since 10/12/2024
+ * @param missatge Missatge que es mostrarà en pantalla
+ * @return resultat Array amb els dos números introduits per l'usuari
+ */
+fun llegirDosNumerosDivisio(
+    missatge1: String = "Introdueix el primer número positius",
+    missatge2: String = "Introdueix el segon número positiu"
+): Array<Float> {
+    var resultat: Array<Float>
+    var valorCorrecte: Boolean = true
+    var num1: Float = 0.0f
+    do {
+        println(missatge1)
+        valorCorrecte = scan.hasNextFloat()
+        if (valorCorrecte == false) {
+            println(RED_BOLD + "ERROR: Has d'introduir un número positiu" + RESET)
+            scan.nextLine()
+        } else {
+            num1 = scan.nextFloat()
+            scan.nextLine()
+        }
+    } while (valorCorrecte == false)
+    valorCorrecte = true
+    var num2: Float = 0.0f
+    do {
+        println(missatge2)
+        valorCorrecte = scan.hasNextFloat()
+        if (valorCorrecte == false) {
+            println(RED_BOLD + "ERROR: Has d'introduir un número positiu" + RESET)
+            scan.nextLine()
+        } else {
+            num2 = scan.nextFloat()
+            scan.nextLine()
+            if (num2 == 0.0f) {
+                println(RED_BOLD + "ERROR: No pots dividir per 0" + RESET)
                 valorCorrecte = false
             }
         }
@@ -682,6 +702,8 @@ fun llegirDosNumeros(
     return resultat
 
 }
+
+
 
 /**
  * Aquesta funció servei per fer una operació entre dos números de tipus float i retorna el resultat amb els dos numeros operats en una array
@@ -731,60 +753,4 @@ fun bold(text:String): String {
     var sortida:String=""
     sortida=BOLD+text+RESET
     return sortida
-}
-
-/* ----------------------------Funcions no utilitzades----------------------------------------- */
-/**
- * Aquesta funció servei per fer una operació entre dos números de tipus float
- * @author agustí.lópez
- * @since 10/12/2024
- * @param entradaUsuari Array que conté els dos números a partir dels quals operar
- * @param operacio Operació a realitzar entre els dos números
- * @return resultat Resultat de l'operació
- */
-fun resultatOperacioDosNumeros(entradaUsuari: Array<Float>, operacio: String): Float {
-    var num1 = entradaUsuari[0]
-    var num2 = entradaUsuari[1]
-    var resultat: Float = 0.0f
-
-    when (operacio.lowercase()) {
-        "suma" -> {
-            resultat = operar(num1, num2, ::suma)
-        }
-
-        "resta" -> {
-            resultat = operar(num1, num2, ::resta)
-        }
-
-        "multiplicacio" -> {
-            resultat = operar(num1, num2, ::multiplicacio)
-        }
-
-        "divisio" -> {
-            resultat = operar(num1, num2, ::divisio)
-        }
-    }
-
-    return resultat
-}
-/**
- * Aquesta funció servei per fer una operació amb un número de tipus enter
- * @author agustí.lópez
- * @since 10/12/2024
- * @param entradaUsuari Número a partir del qual realitzar l'operació
- * @param operacio Operació a realitzar
- * @return resultat Resultat de l'operació
- */
-fun resultatOperacioUnNumero(entradaUsuari: Int, operacio: String): Int {
-    var num1 = entradaUsuari
-    var resultat: Int = 0
-
-    when (operacio.lowercase()) {
-        "quadrat" -> {
-            resultat = operar(num1, ::quadrat)
-        }
-
-    }
-
-    return resultat
 }
