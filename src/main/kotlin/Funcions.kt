@@ -170,6 +170,9 @@ fun ferOperacions(usuariActual: Usuari){
     } while (continuar && usuariActual.operacionsDisponibles>0)
 }
 
+
+/* ------------------------------------------------- Funcions base -------------------------------------------------------*/
+
 /**
  * Aquesta funció serveix per esborrar un usuari de la llista d'usuaris registrats, prèvia verificació del nom i contrasenya.
  * @author agustí.lópez
@@ -187,7 +190,7 @@ fun esborrarUsuari(){
             llegirContrasenyaLogin("Escriu la contrasneya", llistaUsuaris, llegirNomUsuari)
         var usuariABorrar = usuariConnectat(llistaUsuaris, llegirNomUsuari, llegirContrasenyaLogin)
         var borrarUsuari = preguntaTrueFalse(
-            "Estàs segur que vols el·liminar l'usuari $llegirNomUsuari? Aquesta acció és irreversible. (Si/No)",
+            "${RED}Estàs segur que vols el·liminar l'usuari $llegirNomUsuari? Aquesta acció és irreversible. (Si/No)${RESET}",
             "Has d'escriure 'Si' o 'No'",
             "si",
             "no"
@@ -203,7 +206,6 @@ fun esborrarUsuari(){
 
 }
 
-/* ------------------------------------------------- Funcions base -------------------------------------------------------*/
 /**
  * Aquesta funció serveix per guardar les dades de l'usuari que ha iniciat sessió
  * @author agustí.lópez
@@ -278,10 +280,11 @@ fun llegirContrasenyaRegistre(missatgeEntrada: String, llistaUsuaris:MutableList
 
     var contrasenyaIntroduida : String = ""
     var correctDataType : Boolean = false
-    var contransenyaSegura : Boolean = false
+    var contransenyaSegura : Boolean = true
 
     do{
         println(missatgeEntrada)
+        contransenyaSegura=true
         correctDataType = scan.hasNext()
 
         if (!correctDataType){
@@ -290,9 +293,19 @@ fun llegirContrasenyaRegistre(missatgeEntrada: String, llistaUsuaris:MutableList
             contrasenyaIntroduida = scan.next()
 
             if(contrasenyaIntroduida.length<5){
-                println(RED_BOLD + "La contrasenya ha de tenir un mínim de 5 caràcters." + RESET)
+                println(RED_BOLD + "CONTRASENYA POC SEGURA: La contrasenya ha de tenir un mínim de 5 caràcters." + RESET)
                 contransenyaSegura=false
-            }else contransenyaSegura=true
+            }
+
+            if(contrasenyaIntroduida.contains("asdfg")){
+                println(RED_BOLD + "CONTRASENYA POC SEGURA: La contrasenya no pot contenir la seqüència 'asdfg'" + RESET)
+                contransenyaSegura=false
+            }
+            if(contrasenyaIntroduida.contains("12345")){
+                println(RED_BOLD + "CONTRASENYA POC SEGURA: La contrasenya no pot contenir la seqüència '12345'" + RESET)
+                contransenyaSegura=false
+            }
+
 
         }
     }while(!correctDataType || !contransenyaSegura)
